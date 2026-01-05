@@ -2,11 +2,10 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto, ResponseUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto } from './dto';
 import { UserRepository } from './entities/user.repository';
 import * as bcrypt from 'bcrypt';
 
