@@ -8,7 +8,6 @@ import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
 import { VacancyModule } from './vacancy/vacancy.module';
-import { TecnologiesModule } from './tecnologies/tecnologies.module';
 import { ApplicationModule } from './application/application.module';
 
 @Module({
@@ -23,7 +22,6 @@ import { ApplicationModule } from './application/application.module';
     RoleModule,
     AuthModule,
     VacancyModule,
-    TecnologiesModule,
     ApplicationModule,
   ],
   controllers: [AppController],

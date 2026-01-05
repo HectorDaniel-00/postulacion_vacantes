@@ -13,7 +13,7 @@ async function bootstrap() {
       forbidUnknownValues: true,
     }),
   );
-  //app.useGlobalGuards(new AuthJwtGuard(app.get(Reflector)));
+  app.useGlobalGuards(new AuthJwtGuard(app.get(Reflector)));
   app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
   app.setGlobalPrefix('api');
   await app.listen(process.env.APP_PORT ?? 3000);
