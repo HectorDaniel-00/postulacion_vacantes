@@ -1,7 +1,5 @@
 import * as Joi from 'joi';
 
-const isProd = process.env.NODE_ENV === 'production';
-
 export const envValidationSchema = Joi.object({
   // App
   APP_PORT: Joi.number().default(3000),
@@ -10,7 +8,6 @@ export const envValidationSchema = Joi.object({
     .default('development'),
 
   // Postgres
-  DATABASE_URL: Joi.string().required(),
   POSTGRES_HOST: Joi.string().required(),
   POSTGRES_PORT: Joi.number().required(),
   POSTGRES_USER: Joi.string().required(),
