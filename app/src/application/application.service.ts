@@ -1,26 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { CreateApplicationDto } from './dto/create-application.dto';
-import { UpdateApplicationDto } from './dto/update-application.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { ApplicationRepository } from './entities/application.repository';
 
 @Injectable()
 export class ApplicationService {
-  create(createApplicationDto: CreateApplicationDto) {
-    return 'This action adds a new application';
-  }
+  constructor(private readonly repo: ApplicationRepository) {}
 
-  findAll() {
-    return `This action returns all application`;
-  }
+  async apply(userId: number, vacancyId: number) {
+    const dto = { userId, vacancyId };
+    const alreadyApplied = await this.repo.hasUserApplied(dto);
 
-  findOne(id: number) {
-    return `This action returns a #${id} application`;
-  }
+    if (alreadyApplied) {
+      throw new BadRequestException('Ya aplicaste a esta vacante');
+    }
 
-  update(id: number, updateApplicationDto: UpdateApplicationDto) {
-    return `This action updates a #${id} application`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} application`;
+    return this.repo.applyToVacancy(dto);
   }
 }
