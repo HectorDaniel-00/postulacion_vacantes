@@ -3,10 +3,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export function setupSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle(process.env.SWAGGER_TITLE!)
-    .setDescription(process.env.SWAGGER_DESCRIPTION!)
-    .setVersion(process.env.SWAGGER_VERSION!)
-    .addTag('Default')
+    .setTitle(process.env.SWAGGER_TITLE || 'API de Postulación de Vacantes')
+    .setDescription(
+      process.env.SWAGGER_DESCRIPTION ||
+        'Esta es la documentación de la API para la gestión de usuarios, roles, vacantes y autenticación.',
+    )
+    .setVersion(process.env.SWAGGER_VERSION || '1.0.0')
+    .addTag(
+      'Auth',
+      'Endpoints relacionados con la autenticación y autorización',
+    )
+    .addTag('Users', 'Gestión de usuarios')
+    .addTag('Roles', 'Gestión de roles y permisos')
+    .addTag('Vacancies', 'Gestión de vacantes')
     .addBearerAuth(
       {
         type: 'http',
@@ -14,11 +23,18 @@ export function setupSwagger(app: INestApplication) {
         bearerFormat: 'JWT',
         name: 'Authorization',
         in: 'header',
+        description: 'Introduce el token JWT para autenticar las solicitudes',
       },
       'access-token',
     )
     .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('docs', app, documentFactory);
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api/docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Documentación API - Postulación Vacantes',
+  });
 }
