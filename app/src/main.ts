@@ -4,9 +4,12 @@ import { ValidationPipe } from '@nestjs/common';
 import { ResponseInterceptor } from './common/interceptor';
 import { AuthJwtGuard } from './auth/guard/jwt.guards';
 import { AllExceptionsFilter } from './common/filter/all-exceptions.filter';
+import { setupSwagger } from './config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+  setupSwagger(app);
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -15,9 +18,8 @@ async function bootstrap() {
     }),
   );
   app.useGlobalFilters(new AllExceptionsFilter());
-  app.useGlobalGuards(new AuthJwtGuard(app.get(Reflector)));
+  //app.useGlobalGuards(new AuthJwtGuard(app.get(Reflector)));
   app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
-  app.setGlobalPrefix('api');
   await app.listen(process.env.APP_PORT ?? 3000);
 }
 bootstrap();

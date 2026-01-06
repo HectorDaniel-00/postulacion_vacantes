@@ -14,9 +14,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Message, Roles } from 'src/common/decorator';
 import { plainToInstance } from 'class-transformer';
 import { ResponseUserDto } from './dto';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 @ApiTags('Users')
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}

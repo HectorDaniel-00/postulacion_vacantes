@@ -31,10 +31,10 @@ export class UserService {
 
     const salt = await bcrypt.genSalt(this.salRound);
     const hashedPassword = await bcrypt.hash(data.password, salt);
-    const role = await this.roleService.findByName('USER');
+    const role = await this.roleService.findByName('ADMIN');
 
     const newUser = {
-      name: data.email,
+      name: data.name,
       email: data.email,
       password: hashedPassword,
       role,

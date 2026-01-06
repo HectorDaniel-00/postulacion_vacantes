@@ -61,7 +61,6 @@ El proyecto está organizado en módulos para facilitar su mantenimiento y escal
    APP_CONTAINER_NAME=app-container
    APP_PORT=3000
    NODE_ENV=development
-   DATABASE_URL=postgres://user:password@db:5432/database
    POSTGRES_USER=user
    POSTGRES_PASSWORD=password
    POSTGRES_DB=database
