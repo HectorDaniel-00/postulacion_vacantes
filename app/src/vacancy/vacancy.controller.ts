@@ -82,7 +82,7 @@ export class VacancyController {
   })
   @ApiBearerAuth()
   @ApiResponse({ status: 404, description: 'Vacante no encontrada.' })
-  @Get('active')
+  @Get(':id/active')
   @Roles(Role.ADMIN, Role.GESTOR, Role.USER)
   @UseGuards(AuthRoleGuard)
   toggleActive(@Param('id', ParseIntPipe) id: number) {
